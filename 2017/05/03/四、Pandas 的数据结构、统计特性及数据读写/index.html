@@ -1,0 +1,998 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="测试标签1," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="##一、Pandas 的数据结构(Series, DataFrame)  ###0. NumPy 和 Pandas 的区别？  简单的向量操作与 ndarray 的表现一致 Series 和 ndarray 不同的地方在于，Series 的操作默认是使用 index 的值进行对齐的，而不是相对位置 DataFrame 和 ndarray 不同的地方在于，DataFrame 的列数据可以是不同的类型">
+<meta name="keywords" content="测试标签1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pandas">
+<meta property="og:url" content="http://yoursite.com/2017/05/03/四、Pandas 的数据结构、统计特性及数据读写/index.html">
+<meta property="og:site_name" content="MZP">
+<meta property="og:description" content="##一、Pandas 的数据结构(Series, DataFrame)  ###0. NumPy 和 Pandas 的区别？  简单的向量操作与 ndarray 的表现一致 Series 和 ndarray 不同的地方在于，Series 的操作默认是使用 index 的值进行对齐的，而不是相对位置 DataFrame 和 ndarray 不同的地方在于，DataFrame 的列数据可以是不同的类型">
+<meta property="og:image" content="http://img.blog.csdn.net/20170409230714736?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbXpwbXpr/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-05-29T00:46:32.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pandas">
+<meta name="twitter:description" content="##一、Pandas 的数据结构(Series, DataFrame)  ###0. NumPy 和 Pandas 的区别？  简单的向量操作与 ndarray 的表现一致 Series 和 ndarray 不同的地方在于，Series 的操作默认是使用 index 的值进行对齐的，而不是相对位置 DataFrame 和 ndarray 不同的地方在于，DataFrame 的列数据可以是不同的类型">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170409230714736?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbXpwbXpr/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/03/四、Pandas 的数据结构、统计特性及数据读写/"/>
+
+
+
+
+
+  <title> Pandas | MZP </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MZP</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep Moving</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/03/四、Pandas 的数据结构、统计特性及数据读写/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MZP">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://asemvietnam.vn/wp-content/uploads/2016/03/cham-ngon-tieng-anh-co-hinh-anh-2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MZP">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Pandas
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-03T17:47:00+08:00">
+                2017-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试分类1/" itemprop="url" rel="index">
+                    <span itemprop="name">测试分类1</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/03/四、Pandas 的数据结构、统计特性及数据读写/" class="leancloud_visitors" data-flag-title="Pandas">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##<strong>一、Pandas 的数据结构(Series, DataFrame)</strong></p>
+<hr>
+<p>###<strong>0. NumPy 和 Pandas 的区别？</strong></p>
+<ul>
+<li>简单的向量操作与 <strong>ndarray</strong> 的表现一致</li>
+<li><strong>Series</strong> 和 <strong>ndarray</strong> 不同的地方在于，Series 的操作默认是使用 index 的值进行对齐的，而不是相对位置</li>
+<li><strong>DataFrame</strong> 和 <strong>ndarray</strong> 不同的地方在于，DataFrame 的列数据可以是不同的类型</li>
+</ul>
+<hr>
+<p>###<strong>1. Series</strong></p>
+<blockquote>
+<p>它是一种<strong>类似一维数组</strong>的对象(obj)，由一组<strong>数据</strong>(各种numpy数据类型)以及一组与之相关的数据标签(即<strong>索引</strong>)组成。</p>
+<p>####<strong>a 、生成 Series 对象：pd.Series(data, index=index)</strong></p>
+<ul>
+<li>通过 <strong>list</strong> 构建 <strong>Series 对象</strong>：<code>ser_obj = pd.Series(range(10))</code></li>
+<li>通过 <strong>dict</strong> 构建 <strong>Series 对象</strong><ul>
+<li><code>d = {&#39;a&#39; : 0., &#39;b&#39; : 1., &#39;c&#39; : 2.}, ser_obj = pd.Series(d)</code> </li>
+<li>若创建 Series 对象的时候不给定 index，那么 <strong>index</strong> 将使用 dict 的 <strong>key 排序之后</strong>的结果，此时可使用 key 来索引数据</li>
+</ul>
+</li>
+<li>通过 <strong>标量值</strong> 构建 <strong>Series 对象</strong> <ul>
+<li>此时 index 值必须被指定，得到一个值为 data 与 index 等长的 Series </li>
+<li>pd.Series(5, index=[‘a’, ‘b’, ‘c’])<br>####<strong>b、获取数据</strong></li>
+</ul>
+</li>
+<li>通过<strong>index</strong>属性获取<strong>Series 对象</strong>数据的索引：<code>ser_obj.index  # 返回 index 对象 RangeIndex</code></li>
+<li>通过<strong>values</strong>属性获取<strong>Series 对象</strong>数据所有的值：<code>ser_obj.values  # 返回 ndarray</code></li>
+<li>通过索引获取 <strong>Series 对象</strong>数据的单一或部分值<ul>
+<li>Series 对象默认的索引下表为数字(<strong>pos</strong>)，可以在创建 Series 对象的时候指定<strong>index</strong> 的值(<strong>label</strong>)，<code>eg: ser_obj = pd.Series(range(3), index=[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</code> ，我们称<strong>‘a’、’b’、’c’</strong> 为索引的 <strong>label</strong></li>
+<li>行索引：<code>ser_obj[pos] or ser_obj[label]</code></li>
+<li>切片索引：<code>ser_obj[0:2] or ser_obj[label0 : label2]</code>,注意：位置索引(pos)是不包含终止索引的，但按<strong>label</strong>索引时是包含终止索引的</li>
+<li>不连续索引：<code>ser_obj[[pos0, pos2]]</code>，注意是两个中括号； <code>ser_obj[[label0, label2]]</code></li>
+<li>布尔索引：<code>ser_obj[ser_bool] # ser_bool 可以为条件表达式，只取出布尔值为真的元素的值</code><br>####<strong>c、预览数据</strong></li>
+</ul>
+</li>
+<li>通过 <strong>head</strong> 方法查看 <strong>Series 对象</strong>最前面几行的数据(默认为5)：<code>ser_obj.head(n)</code></li>
+<li>通过 <strong>tail</strong> 方法查看<strong>Series 对象</strong>最后面几行的数据(默认为5)：<code>ser_obj.tail(n)</code></li>
+</ul>
+</blockquote>
+<p>####d、Name 属性</p>
+<ul>
+<li>设置<strong>Series 对象</strong>的名字：<code>ser_obj.name = &#39;temp&#39;</code></li>
+<li>设置<strong>Series 对象</strong>的索引列的名字：<code>ser_obj.index.name = &#39;year&#39;</code></li>
+</ul>
+<hr>
+<p>###<strong>2. DataFrame(DF)</strong></p>
+<blockquote>
+<p>它是 pandas 中的二维数据结构，可以看成一个 Excel 中的工作表，或者一个 SQL 表，或者一个<strong>存储 Series 对象的字典</strong>。</p>
+<p>####<strong>a 、生成 DF 对象：pd.DataFrame(data, index, columns) </strong></p>
+<ul>
+<li><strong>index</strong> 用于指定行的 label，<strong>columns</strong> 用于指定列的 label，如果不传入参数，那么它们将会使用默认的值(从 <strong>0</strong> 开始的数字序列代替)。</li>
+<li>通过 <strong>ndarray</strong> 构建 <strong>DF 对象</strong>：<code>array = np.random.randn(5, 4) df_obj = pd.DataFrame(array)</code></li>
+<li>通过 <strong>dict</strong> 构建 <strong>DF 对象</strong><ul>
+<li><code>df_obj = pd.DataFrame(dict)</code> </li>
+<li>若创建 <strong>DF</strong> 对象的时候不给定 index 和 columns，那么 <strong>index</strong> 将使用从 0 开始的数字序列代替，<strong>columns</strong> 将使用字典中的 <strong>key</strong> 代替，且数据会自动扩展(<strong>broadcast</strong>) </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>####<strong>b、数据操作(增删改查)</strong></p>
+<ul>
+<li>通过<strong>index</strong>属性获取 <strong>DF 对象</strong>数据的行索引：<code>df_obj.index  # 返回 index 对象</code></li>
+<li>通过<strong>columns</strong>属性获取 <strong>DF 对象</strong>数据的列索引：<code>df_obj.columns  # 返回 index 对象</code></li>
+<li>通过<strong>values</strong>属性获取 <strong>DF 对象</strong>数据所有的值：<code>df_obj.values  # 返回 ndarray</code></li>
+<li>函数应用：<code>df.apply(f, axis=0)</code> ，将函数应用到列上(按列统计) <code>df.applymap(f)</code>， 将函数应用到每个数据上</li>
+<li>转置：<code>df.T</code></li>
+<li>排序<ul>
+<li><code>df.sort_index()</code> 按照索引值的大小排序 </li>
+<li><code>df.sort_values(by = &#39;label&#39;)</code> 按照 label 下值得大小进行排序</li>
+</ul>
+</li>
+<li>增加列数据：<code>df_obj[new_col_idx] = Series_type_data</code></li>
+<li>删除列数据：<code>del df_obj[col_idx]</code></li>
+<li>改变数据值：<code>df_obj[index] = new_value</code></li>
+<li>查看数据值：<ul>
+<li><code>df_obj[col_label] or df_obj.col_label</code> ，列索引，返回的是 <strong>Series</strong> 类型的数据</li>
+<li><code>df_obj[[label0, label2]] or df_obj[[0, 2]]</code> ，不连续索引，注意是两重小括号，返回的是 <strong>DataFrame</strong> 类型的数据<br>####<strong>c、预览数据</strong></li>
+</ul>
+</li>
+<li>通过 <strong>head</strong> 方法查看 <strong>DF 对象</strong>最前面几行的数据(默认为5)：<code>ser_obj.head(n)</code></li>
+<li>通过 <strong>tail</strong> 方法查看<strong>DF 对象</strong>最后面几行的数据(默认为5)：<code>ser_obj.tail(n)</code></li>
+</ul>
+<hr>
+<p>###<strong>3. 索引操作总结</strong></p>
+<ul>
+<li>标签索引：<code>df_obj.loc[0:2, label] == df_obj[label][0:2]</code></li>
+<li>位置索引：<code>df_obj.iloc[0:2, pos] == df[[pos]][0:2]</code></li>
+<li>混合索引：<code>df_obj.ix[0:2, label/pos] # 先按标签索引尝试操作，再按位置索引尝试操作</code></li>
+<li>注意：<ul>
+<li>标签的切片索引是包含末尾位置的，而位置索引不包含 </li>
+<li>DF 索引时可将其看作是 <strong>ndarray</strong> 操作</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>##<strong>二、Pandas 统计计算和描述</strong></p>
+<blockquote>
+<p>axis=0 按列统计，axis=1 按行统计</p>
+</blockquote>
+<p><img src="http://img.blog.csdn.net/20170409230714736?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbXpwbXpr/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<hr>
+<p>##<strong>三、Pandas CSV(Comma-Separated Values) 数据的读写</strong></p>
+<blockquote>
+<p>Pandas 提供了一些用于将<strong>表格型数据</strong>读取为<strong>DataFrame对象</strong>的函数，主要有<strong><code>pandas.read_csv(parameters)</code></strong> 和<strong><code>DataFrame.to_csv(parameters)</code></strong></p>
+</blockquote>
+<p>###<strong>1. 读操作：<code>pandas.read_csv(parameters)</code></strong></p>
+<ul>
+<li><code>df_obj = pd.read_csv(&#39;path/to/file_in.csv&#39;, usecols=[&#39;col_label1&#39;, &#39;col_label2&#39;])</code>，返回<strong>DataFrame</strong>类型的数据，<strong>只取文件指定的两列</strong></li>
+<li>显示数据的前n行(默认n=5)：<code>df_obj.head(n)</code></li>
+<li>显示数据的后n行(默认n=5)：<code>df_obj.tail(n)</code></li>
+<li>读操作常用参数：<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># filepath_or_buffer </span></div><div class="line">表示文件系统位置、URL、文件型对象的字符串</div><div class="line"></div><div class="line"><span class="comment"># sep </span></div><div class="line">分隔符，默认为<span class="string">','</span> 可使用正则表达式进行模糊匹配进行分割, eg: sep=<span class="string">'\s+'</span>，匹配多个空白字符(包括空格、换行符、制表符等) </div><div class="line"></div><div class="line"><span class="comment"># header </span></div><div class="line">用作列名的行号，不指定该参数时，Pandas 会把第一行当作列名。若指定 header=<span class="keyword">None</span>, Pandas 就不会把第一行当作列名了，它会为数据重新分配位置参数序列(pos=<span class="number">0</span>,<span class="number">1</span>,...n)作为列名</div><div class="line"></div><div class="line"><span class="comment"># names</span></div><div class="line">array-like, default <span class="keyword">None</span>，list of column names to use. 用列表来指定列名，通常结合 header=<span class="keyword">None</span> 使用</div><div class="line"></div><div class="line"><span class="comment"># nrows</span></div><div class="line">Number of rows of file to read(只读取文件的几行，也可以用 DataFrame 的head() 或 tail() 方法实现). Useful <span class="keyword">for</span> reading pieces of large files</div><div class="line"></div><div class="line"><span class="comment"># usecols</span></div><div class="line">All elements <span class="keyword">in</span> this array must either be positional (i.e. integer indices into the document columns) <span class="keyword">or</span> strings that correspond to column names provided either by the user <span class="keyword">in</span> names <span class="keyword">or</span> inferred <span class="keyword">from</span> the document header row(s). Eg：a valid usecols parameter would be [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>] <span class="keyword">or</span> [‘foo’, ‘bar’, ‘baz’]</div><div class="line"></div><div class="line"><span class="comment"># skiprows</span></div><div class="line">Line numbers to skip(用 list 指定想要跳过的行号即可 ) <span class="keyword">or</span> number of lines to skip (int) at the start of the file</div><div class="line"></div><div class="line"><span class="comment"># skipfooter</span></div><div class="line">Number of lines at bottom of file to skip </div><div class="line"></div><div class="line"><span class="comment"># chunksize</span></div><div class="line">Return TextFileReader object <span class="keyword">for</span> iteration</div><div class="line"></div><div class="line"><span class="comment"># encoding</span></div><div class="line">Encoding to use <span class="keyword">for</span> UTF when reading/writing (ex. ‘utf<span class="number">-8</span>’). List of Python standard encodings</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###<strong>2.  写操作：<code>DataFrame.to_csv(parameters)</code></strong></p>
+<ul>
+<li><code>df_obj.to_csv(&#39;path/to/file_out.csv&#39;, index=None/False, header=None/False)</code>，把<strong>行标签去掉和列标签</strong>去掉</li>
+<li>写操作常用参数：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># path_or_buf</div><div class="line">文件保存路径</div><div class="line"></div><div class="line"># index</div><div class="line">boolean, default True，Write row names (index)</div><div class="line"></div><div class="line"># header</div><div class="line">boolean or list of string, default True，Write out column names. If a list of string is given it is assumed to be aliases for the column names</div><div class="line"></div><div class="line"># sep </div><div class="line">分隔符，默认为&apos;,&apos; </div><div class="line"></div><div class="line"># columns</div><div class="line">sequence, Columns to write(可以只保存一部分数据，通过指定列表来完成)</div><div class="line"></div><div class="line"># encoding </div><div class="line">A string representing the encoding to use in the output file, defaults to ‘ascii’ on Python 2 and ‘utf-8’ on Python 3</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p>##四、参考资料<br><a href="http://pandas.pydata.org/pandas-docs/stable/10min.html" target="_blank" rel="external">1、10 Minutes to pandas</a><br><a href="http://www.cnblogs.com/chaosimple/p/4153083.html" target="_blank" rel="external">2、十分钟搞定pandas</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/测试标签1/" rel="tag"># 测试标签1</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/03/深度学习的历史趋势/" rel="next" title="深度学习的历史趋势">
+                <i class="fa fa-chevron-left"></i> 深度学习的历史趋势
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/03/Jupyter Notebook 的快捷键、Magic 命令以及远程服务器的调用/" rel="prev" title="Jupyter Notebook">
+                Jupyter Notebook <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://asemvietnam.vn/wp-content/uploads/2016/03/cham-ngon-tieng-anh-co-hinh-anh-2.jpg"
+               alt="MZP" />
+          <p class="site-author-name" itemprop="name">MZP</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mzpmzk" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:mzpmzk@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/mzpmzk" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              LAB_726
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://wxinlong.github.io/" title="小师弟" target="_blank">小师弟</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/sallyxyl1993?viewmode=list" title="杨柳" target="_blank">杨柳</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/zhangxinyu11021130?viewmode=list" title="小肚" target="_blank">小肚</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/z1102252970" title="老章" target="_blank">老章</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/yingyujianmo" title="慧神" target="_blank">慧神</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MZP</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("tpqL0wlCym2VcCTmfYgwuAVO-gzGzoHsz", "PBHBjJFw2JtKduUGymUcYNQe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

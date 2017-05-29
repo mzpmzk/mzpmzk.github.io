@@ -1,0 +1,985 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tags," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="深度学习的历史趋势  人工智能的一个关键挑战： 将非形式化的知识传达给计算机 如何将非形式化的知识表示出来，对机器学习算法的性能会产生巨大的影响，如下图所示用极坐标表示数据比用笛卡尔坐标系表示数据更容易用线性模型将数据分开   表示学习(Representation Learning)  对于许多任务，同一类物体的变体(Variation)很多而且在不同场景下物体的表现形式不同，所以我们很难知道要">
+<meta name="keywords" content="tags">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习的历史趋势">
+<meta property="og:url" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/index.html">
+<meta property="og:site_name" content="MZP">
+<meta property="og:description" content="深度学习的历史趋势  人工智能的一个关键挑战： 将非形式化的知识传达给计算机 如何将非形式化的知识表示出来，对机器学习算法的性能会产生巨大的影响，如下图所示用极坐标表示数据比用笛卡尔坐标系表示数据更容易用线性模型将数据分开   表示学习(Representation Learning)  对于许多任务，同一类物体的变体(Variation)很多而且在不同场景下物体的表现形式不同，所以我们很难知道要">
+<meta property="og:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/数据的表示形式.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/人工智能韦恩图.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/表示学习.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/一图看尽人工神经网络研究的时代沉浮.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/dropout%20技术.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/1495853724645.png">
+<meta property="og:updated_time" content="2017-05-29T01:03:48.259Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习的历史趋势">
+<meta name="twitter:description" content="深度学习的历史趋势  人工智能的一个关键挑战： 将非形式化的知识传达给计算机 如何将非形式化的知识表示出来，对机器学习算法的性能会产生巨大的影响，如下图所示用极坐标表示数据比用笛卡尔坐标系表示数据更容易用线性模型将数据分开   表示学习(Representation Learning)  对于许多任务，同一类物体的变体(Variation)很多而且在不同场景下物体的表现形式不同，所以我们很难知道要">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/03/深度学习的历史趋势/数据的表示形式.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/03/深度学习的历史趋势/"/>
+
+
+
+
+
+  <title> 深度学习的历史趋势 | MZP </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MZP</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep Moving</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/03/深度学习的历史趋势/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MZP">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://asemvietnam.vn/wp-content/uploads/2016/03/cham-ngon-tieng-anh-co-hinh-anh-2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MZP">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深度学习的历史趋势
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-03T17:47:00+08:00">
+                2017-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/categories/" itemprop="url" rel="index">
+                    <span itemprop="name">categories</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/03/深度学习的历史趋势/" class="leancloud_visitors" data-flag-title="深度学习的历史趋势">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="深度学习的历史趋势"><a href="#深度学习的历史趋势" class="headerlink" title="深度学习的历史趋势"></a>深度学习的历史趋势</h1><hr>
+<ul>
+<li>人工智能的一个关键挑战：<ul>
+<li>将非形式化的知识传达给计算机</li>
+<li>如何将非形式化的知识<strong>表示</strong>出来，对机器学习算法的性能会产生巨大的影响，如下图所示用极坐标表示数据比用笛卡尔坐标系表示数据更容易用线性模型将数据分开<br><img src="./数据的表示形式.jpg" alt="Alt text"></li>
+</ul>
+</li>
+<li><p><strong>表示学习(Representation Learning)</strong></p>
+<ul>
+<li>对于许多任务，同一类物体的<strong>变体(Variation)很多</strong>而且在<strong>不同场景</strong>下物体的表现形式不同，所以我们很难知道要手工提取哪些特征，因此引出表示学习</li>
+<li>One solution to this problem is to use <strong>machine learning</strong> to discover not only <strong>the mapping</strong> from representation to output but also <strong>the representation itself</strong>. This approach is known as representation learning.</li>
+<li>表示学习很难提取高层次、抽象的特征，所以引出了深度学习</li>
+<li>深度学习：通过其它比较<strong>简单的表示</strong>来表达<strong>复杂表示</strong>，解决了表示学习中的核心问题</li>
+<li>典例：自编码器(Autoencoder)<a id="more"></a>
+</li>
+</ul>
+</li>
+<li><p><strong>深度学习(Deep Learning)</strong></p>
+</li>
+<li>下图 <strong>1_4</strong> 和 <strong>1_5</strong> 展示了不同 <strong>AI</strong> 学科之间的关系以及每个学科是如何工作的？<br><img src="./人工智能韦恩图.jpg" alt="Alt text"><br><img src="./表示学习.jpg" alt="Alt text"><br><img src="./一图看尽人工神经网络研究的时代沉浮.jpg" alt="Alt text"></li>
+<li><strong>第一次浪潮(1943-1986)</strong><ul>
+<li>兴起的标志事件：单层感知机的实现，没加激活函数，本质是线性函数</li>
+<li>衰落的标志事件：单层感知机不能解决异或(XOR)问题</li>
+<li>贡献：随机梯度下降</li>
+</ul>
+</li>
+<li><strong>第二次浪潮(1986-2006)</strong><ul>
+<li>兴起的标志事件：1986年反向传播算法的提出，并可以用它训练具有一到二个隐层的神经网络</li>
+<li>中间的标志事件：万能逼近定理(1989)、卷积神经网路、LSTM、LeNet 的提出</li>
+<li>衰落的标志事件：<strong>梯度消失、计算能力和数据不足</strong>等都导致了网络不能继续深入，于是各式各样的<strong>浅层模型</strong>相继被提出，比如只有一个隐藏层的 SVM 和 Boosting，<strong>核方法和图模型</strong>在很多重要任务上都实现了很好的效果，这导致了神经网络热潮的第二次衰退</li>
+<li>局限性：对复杂问题其泛化能力受到约束，而且大部分需要人工抽取样本的特征</li>
+<li>贡献：One of these concepts is that of <strong>distributed representation</strong> (Hinton et al., 1986). This is the idea that each input to a system should be represented by many features, and each feature should be involved in the representation of many possible inputs. + <strong>反向传播算法的提出</strong> </li>
+<li>万能逼近定理<ul>
+<li>一个前馈神经网络如果具有<strong>线性输出层</strong>和<strong>至少一层具有任何一种‘‘挤压’’ 性质的激活函数（例如logistic sigmoid激活函数）的隐藏层</strong>，只要给予网络<strong>足够数量的隐藏单元</strong>，它可以以任意的精度来近似任何从一个有限维空间到另一个有限维空间的Borel 可测函数</li>
+<li>总之，具有单层的前馈网络足以表示任何函数，但是网络层可能大得不可实现，并且可能无法正确地学习和泛化。在很多情况下，使用更深的模型能够减少表示期望函数所需的单元的数量，并且可以减少泛化误差。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>第三次浪潮(2006至今)</strong><ul>
+<li>兴起的标志事件：DBN 网络的提出，可以使用无监督的逐层预训练解决梯度消失问题</li>
+<li>中间的标志事件：<ul>
+<li>2010 年 Xavier 初始化方法的提出</li>
+<li>2011 年 ReLU 激活函数的提出，使得可以直接以监督式的方式训练深度神经网络，而不必依赖无监督的逐层预训练，祥见慧神论文讨论。</li>
+<li>2012年 AlexNet 和 Dropout 的提出</li>
+<li>2014年 GooleNet、VGG、R-CNN等的提出</li>
+<li>2015年 BN、Faster R-CNN、ResNet等的提出</li>
+<li>2016年和2017年 GAN 的流行<strong>(待补充……)</strong>  </li>
+</ul>
+</li>
+<li>挑战：<ul>
+<li>无监督学习</li>
+<li>深度模型在小数据集上的泛化能力</li>
+<li>深度强化学习 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>###CNN 基础理论和结构演化</p>
+<ul>
+<li>激活函数ReLU</li>
+<li>Because ReLU are nearly linear, they preserve many of the properties that make linear models e<strong>asy to optimize with gradient based methods</strong>.</li>
+<li>They also preserve many of the properties that make linear models <strong>generalize well</strong></li>
+<li>稀疏激活更加符合生物学特性</li>
+<li>卷积神经网络在深度前馈神经网络的基础上，引入三个基本概念：局部感知野(local receptive fields)，权重共享(shared weightes)和混合(pooling)。</li>
+<li><strong>局部感知野</strong>意味着网络中的每个节点只会感知到图像中的局部信息，全连接网络会感知输入信号中的所有信息。</li>
+<li><strong>共享权重</strong>意味着图像中不同位置的局部信息都会被同样的权重进行处理，这大大缩减了卷积网络所需要的参数。在卷积神经网络中，局部感知野及共享权重通过卷积层实现。</li>
+<li><strong>混合操作</strong>通常紧接在卷积层之后使用，一般用于简化卷积层输出的信息。混合操作利用<strong>统计量代替单一值</strong>的做法增加了模型对输入图像微小<strong>形变(rotation)、位移(平移不变性)、缩放</strong>等变换的不变性。 最大池化、平均池化等</li>
+<li>padding？</li>
+</ul>
+<p>###Dropout 和 BN 参考慧神论文总结</p>
+<p>###深度学习中的正则化</p>
+<p><img src="./dropout 技术.jpg" alt="Alt text"></p>
+<p>###深度学习中的模型优化</p>
+<ul>
+<li><strong>批量归一化(Batch Normalization, BN)</strong></li>
+<li><strong>输入特征</strong>的数值归一化对学习算法的<strong>训练稳定性及收敛速度</strong>一般都会产生正面作用，可以使训练更稳定地收敛。传统的做法仅<strong>仅是将输入数据进行归一化</strong>，但是在深层神经网络中，随着每次权重更新，底层神经元的输出、同时也是高层神经元的输入的<strong>分布会随之改变</strong>。批量归一化在深度神经网络不同层的神经元中应用归一化，将各个神经元的激活值通过一个<strong>批量中的统计量进行归一化</strong>后进入更高一层。令T为某层神经元在一个批量下的激活值组成的矩阵，其中每个样本在该矩阵中占据一行，每个隐结点单元在该矩阵中占据一列。我们通过公式$T’ = \frac{T - \mu}{\sigma} $进行归一化。然而，<strong>单纯的进行均值方差归一化</strong>会引起模型的表达能力下降。将神经元的激活值归一化至0均值，1标准差后，<strong>若顶层的激活函数为S形函数，则顶层的输入将会落入S形函数的线性区域</strong>。考虑到将<strong>多层线性层叠加在一起的表达能力依然是线性</strong>，因此，每个批量归一化节点除归一化能力外，一般还增加两个<strong>可学习参数$\alpha$ 和 $\beta$</strong>、将$T′$变为$\alpha T′ + \beta$。该变形在不减小模型的原始表达能力的同时，<strong>可改变隐结点单元中激活值的分布，帮助模型逃离S型函数的线性区域</strong>。这两个参数的值通过梯度下降学习到。通过这两个参数，可以确保增加批量归一化后模型不会弱于未增加批量归一化的模型</li>
+<li>测试时，$\mu$ 和 $\sigma$ 被替代为在整个训练集中得到的均值方差。通过该设定，我们不需要在测试时通过批次计算$\mu$ 和 $\sigma$ ，因此可以允许模型仅仅对单个样本进行测试。<br><img src="./1495853724645.png" alt="Alt text"></li>
+</ul>
+<p>###深度神经网络进行模型压缩<br>例如剪枝(pruning)、知识蒸馏(knowledge distilling)、矩阵分解（低秩分解）、向量量化(vector quantisation) 及参数低精度模型(low precision model) 等。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tags/" rel="tag"># tags</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/03/四、Pandas 的数据结构、统计特性及数据读写/" rel="prev" title="Pandas">
+                Pandas <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://asemvietnam.vn/wp-content/uploads/2016/03/cham-ngon-tieng-anh-co-hinh-anh-2.jpg"
+               alt="MZP" />
+          <p class="site-author-name" itemprop="name">MZP</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mzpmzk" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:mzpmzk@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/mzpmzk" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              LAB_726
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://wxinlong.github.io/" title="小师弟" target="_blank">小师弟</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/sallyxyl1993?viewmode=list" title="杨柳" target="_blank">杨柳</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/zhangxinyu11021130?viewmode=list" title="小肚" target="_blank">小肚</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/z1102252970" title="老章" target="_blank">老章</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/yingyujianmo" title="慧神" target="_blank">慧神</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习的历史趋势"><span class="nav-number">1.</span> <span class="nav-text">深度学习的历史趋势</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MZP</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("tpqL0wlCym2VcCTmfYgwuAVO-gzGzoHsz", "PBHBjJFw2JtKduUGymUcYNQe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
